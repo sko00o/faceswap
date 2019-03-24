@@ -401,7 +401,7 @@ class Checks():
         self.env.cuda_version = cudavers[:cudavers.find(" ")]
         if self.env.cuda_version:
             self.output.info("CUDA version: " + self.env.cuda_version)
-            self.env.cuda_path = chk[chk.find("=>") + 3:chk.find("targets") - 1]
+            self.env.cuda_path = chk[chk.find("=>") + 3:chk.find("lib64") - 1]
 
     def cuda_check_windows(self):
         """ Check Windows CUDA Version """
@@ -422,7 +422,7 @@ class Checks():
         """ Check Linux or Windows cuDNN Version from cudnn.h """
         cudnn_checkfile = os.path.join(self.env.cuda_path, "include", "cudnn.h")
         if not os.path.isfile(cudnn_checkfile):
-            self.output.error("cuDNN not found. See "
+            self.output.error("cuDNN not found in " + cudnn_checkfile + ". See "
                               "https://github.com/deepfakes/faceswap/blob/master/INSTALL.md#cudnn "
                               "for instructions")
             return
